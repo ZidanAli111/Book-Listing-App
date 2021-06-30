@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_parent"
+    android:orientation="vertical"
+    android:background="@drawable/books"
+    tools:context=".MainActivity">
+
+    <!-- TextView for the title of the search interface -->
+    <TextView
+        android:id="@+id/books_here"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingBottom="30dp"
+        android:text="Books Here"
+        android:textAlignment="center"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="#DFEEEA"
+        android:textSize="40sp"
+        android:typeface="monospace" />
+
+
+    <!-- Horizontal LinearLayout container for the text and the button -->
+    <LinearLayout
+        android:id="@+id/search_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/books_here"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/user_input_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:hint="Search your Book"
+            android:imeOptions="actionDone"
+            android:background="@color/white"
+            android:inputType="text"
+            android:layout_weight="5"
+            android:maxLines="1"
+            android:padding="8dp" />
+        <ImageButton
+            android:id="@+id/button_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#B2B8A3"
+            android:onClick="searchFor"
+            android:contentDescription="Search Button"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_search_white_18px" />
+
+
+    </LinearLayout>
+
+    <!-- Checkbox for searching book titles matching search text -->
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_linear_layout"
+        android:layout_alignLeft="@id/search_linear_layout"
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp">
+
+        <RadioButton
+
+            android:id="@+id/title_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:text="Title"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+
+        <RadioButton
+            android:id="@+id/author_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:text="Author"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:buttonTint="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:text="ISBM"
+            android:id="@+id/isbn_radio"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+
+
+</RelativeLayout>
