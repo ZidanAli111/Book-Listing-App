@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class BookAdapter  extends ArrayAdapter<Book> {
@@ -34,6 +36,12 @@ public class BookAdapter  extends ArrayAdapter<Book> {
     /** TextView for the retail price of the book */
     TextView bookPrice;
 
+
+    /** ImageView for the cover of the book */
+   ImageView bookImage;
+    private Context context;
+
+
     public BookAdapter( Context context, List<Book>books) {
         super(context,0, books);
     }
@@ -51,6 +59,7 @@ public class BookAdapter  extends ArrayAdapter<Book> {
 
         }
         Book currentBook=getItem(position);
+
 
         bookTitle=listItemView.findViewById(R.id.book_title_text_view);
         bookTitle.setText(currentBook.getmTitle());
@@ -95,7 +104,6 @@ public class BookAdapter  extends ArrayAdapter<Book> {
 
              bookPrice.setText(price);
         }
-
 
 
 

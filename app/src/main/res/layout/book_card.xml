@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardUseCompatPadding="true">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="200dp"
@@ -14,18 +12,21 @@
             android:id="@+id/book_front_cover_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/book_cover"
             android:contentDescription="Front Cover Image"
-            tools:src="@drawable/books"
             android:scaleType="fitXY"
-            android:background="@drawable/book_cover"/>
+            tools:src="@drawable/books" />
 
         <TextView
             android:id="@+id/book_title_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/white"
+            android:layout_marginLeft="12dp"
             android:layout_marginTop="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="center"
+            android:maxLines="4"
+            android:textColor="@color/white"
             tools:text="Title" />
 
 
@@ -33,16 +34,19 @@
             android:id="@+id/book_info_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/author_text_view"
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Author"/>
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:maxLines="2"
+                android:textColor="@color/white"
+                tools:text="Author" />
 
             <!-- Average Ratings for the book -->
             <RatingBar
@@ -50,11 +54,12 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
                 android:isIndicator="true"
                 android:numStars="5"
 
                 android:rating="3"
-                android:stepSize="0.1"/>
+                android:stepSize="0.1" />
 
             <!-- Price of the book -->
             <TextView
@@ -63,12 +68,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/white"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
                 android:textSize="10sp"
-                tools:text="$4.99"/>
+                tools:text="$4.99" />
 
         </LinearLayout>
-
-
 
 
     </RelativeLayout>

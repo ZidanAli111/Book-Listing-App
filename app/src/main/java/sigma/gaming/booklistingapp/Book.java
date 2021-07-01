@@ -1,10 +1,12 @@
 package sigma.gaming.booklistingapp;
 
 import android.database.DataSetObserver;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
+
+import java.net.URL;
 
 public class Book implements ListAdapter {
 
@@ -16,6 +18,8 @@ public class Book implements ListAdapter {
 
     private  float mPrice;
 
+
+    private  String mImageUrl;
 
 
     Book(String title, String author, float rating, float price)

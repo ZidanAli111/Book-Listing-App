@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,6 @@ public class QueryListOfBookActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.list_of_book);
-
 
         // Find a reference to the {@link ListView} in the layout
         GridView  bookListView = (GridView) findViewById(R.id.list);
