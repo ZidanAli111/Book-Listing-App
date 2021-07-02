@@ -1,9 +1,12 @@
 package sigma.gaming.booklistingapp;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+
+import com.android.volley.RequestQueue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 final class QueryResultActivity {
+
+
 
     /** Tag for the log messages */
     private static final String LOG_TAG = QueryResultActivity.class.getSimpleName();
@@ -81,6 +86,7 @@ final class QueryResultActivity {
             return null;
         }
 
+
         // Initialize list of strings to hold the extracted books
         List<Book> allBooks = new ArrayList<>();
 
@@ -98,7 +104,6 @@ final class QueryResultActivity {
                 JSONObject volume = book.getJSONObject("volumeInfo");
                 // Get the book's title from the volume information
                 String bookTitle = volume.getString("title");
-
                 // Extract information on authors of the book
                 // Initialize empty string to hold authors of the book
                 StringBuilder authors = new StringBuilder();
@@ -170,8 +175,12 @@ final class QueryResultActivity {
                     bookPrice = (float) priceInfo.getDouble("amount");
                 }
 
+                // Get the book's thumbnail from the volume information
+
+                String thumbnail = volume.getJSONObject("imageLinks").getString("thumbnail");
+                
                 // Add book to the list
-                allBooks.add(new Book(bookTitle, authors.toString(), bookRating, bookPrice));
+                allBooks.add(new Book(bookTitle, authors.toString(), bookRating, bookPrice,thumbnail));
             }
 
         } catch (JSONException e) {

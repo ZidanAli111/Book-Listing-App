@@ -12,18 +12,19 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
 public class BookAdapter  extends ArrayAdapter<Book> {
 
     private static final String LOG_TAG =BookAdapter.class.getSimpleName() ;
-
+    private Context mContext;
     /** TextView for title of the book */
     TextView bookTitle;
 
@@ -39,11 +40,13 @@ public class BookAdapter  extends ArrayAdapter<Book> {
 
     /** ImageView for the cover of the book */
    ImageView bookImage;
-    private Context context;
 
 
     public BookAdapter( Context context, List<Book>books) {
         super(context,0, books);
+        //Request option for Glide
+        this.mContext=context;
+
     }
 
     @Override
@@ -59,6 +62,10 @@ public class BookAdapter  extends ArrayAdapter<Book> {
 
         }
         Book currentBook=getItem(position);
+
+        bookImage=listItemView.findViewById(R.id.book_front_cover_image);
+        Glide.with(mContext).load(currentBook.getmThumbnail()).into(bookImage);
+
 
 
         bookTitle=listItemView.findViewById(R.id.book_title_text_view);
@@ -104,6 +111,9 @@ public class BookAdapter  extends ArrayAdapter<Book> {
 
              bookPrice.setText(price);
         }
+
+
+
 
 
 

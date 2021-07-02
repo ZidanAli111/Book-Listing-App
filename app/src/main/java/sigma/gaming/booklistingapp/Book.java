@@ -18,19 +18,22 @@ public class Book implements ListAdapter {
 
     private  float mPrice;
 
+    private String mThumbnail;
 
-    private  String mImageUrl;
 
 
-    Book(String title, String author, float rating, float price)
+
+
+    Book(String title, String author, float rating, float price, String image)
     {
         this.mTitle=title;
         this.mAuthors=author;
         this.mRating=rating;
         this.mPrice=price;
-
+       this.mThumbnail=image;
     }
 
+    public String getmThumbnail() { return mThumbnail; }
 
     public String getmTitle() {
         return mTitle;

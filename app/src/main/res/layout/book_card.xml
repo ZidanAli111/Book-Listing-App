@@ -12,7 +12,6 @@
             android:id="@+id/book_front_cover_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/book_cover"
             android:contentDescription="Front Cover Image"
             android:scaleType="fitXY"
             tools:src="@drawable/books" />
