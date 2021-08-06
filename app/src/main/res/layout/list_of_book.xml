@@ -3,19 +3,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E6DDC6">
 
     <GridView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2"
         android:columnWidth="150dp"
         android:horizontalSpacing="5dp"
-        android:verticalSpacing="5dp"
+        android:numColumns="1"
         android:orientation="vertical"
+        android:verticalSpacing="5dp"
 
-        tools:listitem="@layout/book_card"/>
+        tools:listitem="@layout/book_card" />
 
     <!-- Empty view is only visible when the list has no items. -->
     <TextView

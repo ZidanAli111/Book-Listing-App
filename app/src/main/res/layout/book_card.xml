@@ -1,80 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="150dp"
+    android:layout_marginTop="5dp"
+    android:background="#fff"
+    android:padding="8dp">
 
-    <RelativeLayout
-        android:layout_width="200dp"
-        android:layout_height="200dp">
+    <ImageView
+        android:id="@+id/book_front_cover_image"
+        android:layout_width="120dp"
+        tools:background="@drawable/books"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/thumbnail" />
 
-        <ImageView
-            android:id="@+id/book_front_cover_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="Front Cover Image"
-            android:scaleType="fitXY"
-            tools:src="@drawable/books" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_margin="8dp"
+        android:paddingLeft="5dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/book_title_text_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="12dp"
+            android:maxLines="3"
+            android:text="@string/title"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:text="@string/category"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/retail_price_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/price_background"
+            android:drawableStart="@drawable/ic_monetization_on_black_24dp"
             android:gravity="center"
-            android:maxLines="4"
-            android:textColor="@color/white"
-            tools:text="Title" />
+            android:text="@string/price"
+            android:paddingRight="5dp"
+            android:textColor="#fff"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat" />
 
-
-        <LinearLayout
-            android:id="@+id/book_info_layout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/author_text_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="12dp"
-            android:orientation="vertical">
+            android:maxLines="2"
+            android:text="@string/author"
+            android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/author_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
-                android:layout_marginRight="13dp"
-                android:maxLines="2"
-                android:textColor="@color/white"
-                tools:text="Author" />
+        <RatingBar
+            android:id="@+id/rating_bar"
 
-            <!-- Average Ratings for the book -->
-            <RatingBar
-                android:id="@+id/rating_bar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
-                android:isIndicator="true"
-                android:numStars="5"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="5dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="3"
+            android:stepSize="0.1" />
 
-                android:rating="3"
-                android:stepSize="0.1" />
-
-            <!-- Price of the book -->
-            <TextView
-                android:id="@+id/retail_price_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/white"
-                android:layout_marginLeft="13dp"
-                android:layout_marginRight="13dp"
-                android:textSize="10sp"
-                tools:text="$4.99" />
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-</RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

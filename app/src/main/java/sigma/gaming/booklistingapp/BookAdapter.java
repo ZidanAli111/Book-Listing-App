@@ -14,10 +14,7 @@ import android.widget.TextView;
 
 import androidx.core.graphics.drawable.DrawableCompat;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -64,7 +61,14 @@ public class BookAdapter  extends ArrayAdapter<Book> {
         Book currentBook=getItem(position);
 
         bookImage=listItemView.findViewById(R.id.book_front_cover_image);
-        Glide.with(mContext).load(currentBook.getmThumbnail()).into(bookImage);
+
+        if (currentBook.getmThumbnail() != null) {
+            bookImage.setImageBitmap(currentBook.getmThumbnail());
+
+        }else {
+            bookImage.setImageResource(R.drawable.no_image_to_download);
+        }
+
 
 
 
