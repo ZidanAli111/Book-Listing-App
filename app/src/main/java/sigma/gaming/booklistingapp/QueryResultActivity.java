@@ -52,7 +52,7 @@ final class QueryResultActivity {
             jsonResponse = makeHttpRequest(url);
 
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem making the HTTP request for the search criteria");
+            Log.e(LOG_TAG, "Problem making the HTTP request for the search criteria ..SIGMA..");
         }
 
         // Extract information from the JSON response for each book
@@ -72,7 +72,7 @@ final class QueryResultActivity {
         try {
             url = new URL(stringUrl);
         } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Problem building the url! Check your URL.");
+            Log.e(LOG_TAG, "Problem building the url! Check your URL Sigma!!");
         }
 
         // Return valid url
@@ -88,6 +88,8 @@ final class QueryResultActivity {
 
         // Return early if url is null
         if (url == null) {
+            Log.e("URL IS NULL","Sigma check your Url ... its NULL");
+
             return jsonResponse;
         }
 
@@ -106,8 +108,12 @@ final class QueryResultActivity {
 
             // Set read and connection timeout in milliseconds
             // Basically, setting how long to wait on the request
+
+
+
             urlConnection.setReadTimeout(10000);
             urlConnection.setConnectTimeout(15000);
+
 
             // Establish connection to the url
             urlConnection.connect();
@@ -118,23 +124,34 @@ final class QueryResultActivity {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
-                Log.e(LOG_TAG, "Error while connecting. Error Code: " + urlConnection.getResponseCode());
+                Log.e(LOG_TAG, "Error while connecting..... SIGMA this is the   Error Code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
             e.getMessage();
-            Log.e(LOG_TAG, "Problem encountered while retrieving book results");
+
+            Log.e(LOG_TAG, "Problem encountered while retrieving book results... SIGMA...");
+
         } finally {
             if (urlConnection != null) {
+                Log.e(" DISCONNECT CONNECTION","DISCONNECT THE CONNECTION AFTER SUCCESSFULLY MAKING HTTP REQUEST ...SIGMA ..");
+
                 // Disconnect the connection after successfully making the HTTP request
                 urlConnection.disconnect();
+
             }
             if (inputStream != null) {
                 // Close the stream after successfully parsing the request
                 // This may throw an IOException which is why it is explicitly mentioned in the
                 // method signature
+                Log.e("CLOSE CONNECTION","CLOSE THE INPUTSTREAM AFTER SUCCESSFULLY PARSING THE HTTP REQUEST ...SIGMA ..");
+
                 inputStream.close();
+
             }
         }
+
+
+     //   Log.e(" FINAL JSONRESPONSE","THIS IS THE FINAL JSONRESPONSE SIGMA:"+jsonResponse);
 
         // Return JSON as a {@link String}
         return jsonResponse;
@@ -163,6 +180,7 @@ final class QueryResultActivity {
                 line = reader.readLine();
             }
         }
+// Log.e("FINAL STRINGBUILDER","THIS IS THE FINAL STRINGBUILDER GETTING FROM BUFFERREADER ...SIMGA.."+output);
 
         // Convert the mutable characters sequence from the builder into a string and return
         return output.toString();
@@ -189,6 +207,7 @@ final class QueryResultActivity {
 
             // Extract the array that holds the books
             JSONArray books = rawJSONResponse.getJSONArray("items");
+
             for (int i = 0; i < books.length(); i++) {
                 // Get the current book
                 JSONObject book = books.getJSONObject(i);
@@ -292,7 +311,7 @@ final class QueryResultActivity {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e(LOG_TAG, "Problem parsing the google books JSON results", e);
+            Log.e(LOG_TAG, "Problem parsing the google books JSON results:", e);
         }
 
         // Return the successfully parsed book titles as a {@link List} object

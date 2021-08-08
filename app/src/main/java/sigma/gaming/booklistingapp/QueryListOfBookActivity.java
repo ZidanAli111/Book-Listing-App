@@ -98,9 +98,10 @@ public class QueryListOfBookActivity
         }
 
         // Build the url from user search
-        REQUEST_URL += processedQuery + "&maxResults=40" + "&key=" + API_KEY;
+        REQUEST_URL += processedQuery +"&key=" + API_KEY;
 
-        Log.i("REQUEST URL OF ME :","HERE IS THE REQUEST URL:"+REQUEST_URL);
+        Log.i("REQUEST URL"," SIGMA HERE IS THE REQUEST URL :"+REQUEST_URL);
+
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 
