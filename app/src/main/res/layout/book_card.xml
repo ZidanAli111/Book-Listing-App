@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:layout_marginTop="5dp"
-    android:background="#fff"
+    android:background="@color/white"
     android:padding="8dp">
 
     <ImageView
@@ -65,10 +65,8 @@
             android:text="@string/author"
             android:textSize="12sp" />
 
-        <RatingBar
+        <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/rating_bar"
-
-            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="1dp"
@@ -76,7 +74,10 @@
             android:isIndicator="true"
             android:numStars="5"
             android:rating="3"
-            android:stepSize="0.1" />
+            style="@style/RatingBar"
+            android:stepSize="0.1"
+            android:progressTint="#90EE02"
+            android:progressBackgroundTint="#61D800"/>
 
     </LinearLayout>
 </LinearLayout>

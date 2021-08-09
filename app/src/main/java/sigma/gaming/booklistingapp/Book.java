@@ -21,17 +21,20 @@ public class Book implements ListAdapter {
 
     private Bitmap mThumbnail;
 
+    private String mCategories;
 
 
 
 
-    Book(String title, String author, float rating, float price, Bitmap image)
+
+    Book(String title, String author, float rating, float price, Bitmap image,String categories)
     {
         this.mTitle=title;
         this.mAuthors=author;
         this.mRating=rating;
         this.mPrice=price;
-       this.mThumbnail=image;
+        this.mThumbnail=image;
+        this.mCategories=categories;
     }
 
     public Bitmap getmThumbnail() { return mThumbnail; }
@@ -50,7 +53,7 @@ public class Book implements ListAdapter {
         return mPrice;
     }
 
-
+    public String getmCategories() { return mCategories; }
 
     @Override
     public boolean areAllItemsEnabled() {

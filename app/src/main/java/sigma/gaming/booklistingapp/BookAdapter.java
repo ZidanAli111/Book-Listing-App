@@ -39,6 +39,9 @@ public class BookAdapter  extends ArrayAdapter<Book> {
    ImageView bookImage;
 
 
+   TextView bookCategory;
+
+
     public BookAdapter( Context context, List<Book>books) {
         super(context,0, books);
         //Request option for Glide
@@ -74,6 +77,9 @@ public class BookAdapter  extends ArrayAdapter<Book> {
 
         bookTitle=listItemView.findViewById(R.id.book_title_text_view);
         bookTitle.setText(currentBook.getmTitle());
+
+        bookCategory=listItemView.findViewById(R.id.category);
+        bookCategory.setText(currentBook.getmCategories());
 
         bookAuthor=listItemView.findViewById(R.id.author_text_view);
 

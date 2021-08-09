@@ -264,6 +264,16 @@ final class QueryResultActivity {
                     }
                 }
 
+                String category="";
+                  if(volume.has("categories")) {
+                      JSONArray jsonCategory = volume.getJSONArray("categories");
+
+                       category = jsonCategory.getString(0);
+                      Log.i("CATEGORY:", "SIGMA THE CATEGORY IS: " + category);
+                      if (category == null) {
+                          Log.e("CATEGORY:", "SIGMA THE CATEGORY IS NULL THEIR IS AN ERROR CHECK IT..");
+                      }
+                  }
                 // Initialize float variable to hold current book's ratings
                 float bookRating = 0f;
                 // Check whether the JSON results contain information on book rating
@@ -302,7 +312,7 @@ final class QueryResultActivity {
                         IMAGE = getImage(imageUrl);
 
                 // Add book to the list
-                allBooks.add(new Book(bookTitle, authors.toString(), bookRating, bookPrice, IMAGE));
+                allBooks.add(new Book(bookTitle, authors.toString(), bookRating, bookPrice, IMAGE,category));
             }
 
         } catch (JSONException e) {
