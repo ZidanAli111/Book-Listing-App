@@ -1,7 +1,5 @@
 package sigma.gaming.booklistingapp;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 final class QueryResultActivity {
-
 
     /**
      * Tag for the log messages
@@ -88,7 +85,7 @@ final class QueryResultActivity {
 
         // Return early if url is null
         if (url == null) {
-            Log.e("URL IS NULL","Sigma check your Url ... its NULL");
+            Log.e("URL IS NULL", "Sigma check your Url ... its NULL");
 
             return jsonResponse;
         }
@@ -108,7 +105,6 @@ final class QueryResultActivity {
 
             // Set read and connection timeout in milliseconds
             // Basically, setting how long to wait on the request
-
 
 
             urlConnection.setReadTimeout(10000);
@@ -133,7 +129,7 @@ final class QueryResultActivity {
 
         } finally {
             if (urlConnection != null) {
-                Log.e(" DISCONNECT CONNECTION","DISCONNECT THE CONNECTION AFTER SUCCESSFULLY MAKING HTTP REQUEST ...SIGMA ..");
+                Log.i(" DISCONNECT CONNECTION", "DISCONNECT THE CONNECTION AFTER SUCCESSFULLY MAKING HTTP REQUEST ...SIGMA ..");
 
                 // Disconnect the connection after successfully making the HTTP request
                 urlConnection.disconnect();
@@ -143,7 +139,7 @@ final class QueryResultActivity {
                 // Close the stream after successfully parsing the request
                 // This may throw an IOException which is why it is explicitly mentioned in the
                 // method signature
-                Log.e("CLOSE CONNECTION","CLOSE THE INPUTSTREAM AFTER SUCCESSFULLY PARSING THE HTTP REQUEST ...SIGMA ..");
+                Log.i("CLOSE CONNECTION", "CLOSE THE INPUTSTREAM AFTER SUCCESSFULLY PARSING THE HTTP REQUEST ...SIGMA ..");
 
                 inputStream.close();
 
@@ -151,7 +147,7 @@ final class QueryResultActivity {
         }
 
 
-     //   Log.e(" FINAL JSONRESPONSE","THIS IS THE FINAL JSONRESPONSE SIGMA:"+jsonResponse);
+        //   Log.e(" FINAL JSONRESPONSE","THIS IS THE FINAL JSONRESPONSE SIGMA:"+jsonResponse);
 
         // Return JSON as a {@link String}
         return jsonResponse;
@@ -215,6 +211,15 @@ final class QueryResultActivity {
                 JSONObject volume = book.getJSONObject("volumeInfo");
                 // Get the book's title from the volume information
                 String bookTitle = volume.getString("title");
+
+                String publishedDate = "";
+
+
+                if (volume.has("publishedDate")) {
+
+                    publishedDate = volume.getString("publishedDate");
+
+                }
                 // Extract information on authors of the book
                 // Initialize empty string to hold authors of the book
                 StringBuilder authors = new StringBuilder();
@@ -264,16 +269,16 @@ final class QueryResultActivity {
                     }
                 }
 
-                String category="";
-                  if(volume.has("categories")) {
-                      JSONArray jsonCategory = volume.getJSONArray("categories");
+                String category = "";
+                if (volume.has("categories")) {
+                    JSONArray jsonCategory = volume.getJSONArray("categories");
 
-                       category = jsonCategory.getString(0);
-                      Log.i("CATEGORY:", "SIGMA THE CATEGORY IS: " + category);
-                      if (category == null) {
-                          Log.e("CATEGORY:", "SIGMA THE CATEGORY IS NULL THEIR IS AN ERROR CHECK IT..");
-                      }
-                  }
+                    category = jsonCategory.getString(0);
+                    Log.i("CATEGORY:", "SIGMA THE CATEGORY IS: " + category);
+                    if (category == null) {
+                        Log.e("CATEGORY:", "SIGMA THE CATEGORY IS NULL THEIR IS AN ERROR CHECK IT..");
+                    }
+                }
                 // Initialize float variable to hold current book's ratings
                 float bookRating = 0f;
                 // Check whether the JSON results contain information on book rating
@@ -296,23 +301,39 @@ final class QueryResultActivity {
                     bookPrice = (float) priceInfo.getDouble("amount");
                 }
 
+
+                String description = "";
+                if (volume.has("description")) {
+                    description = volume.getString("description");
+                } else {
+                    description = "No Description Available";
+                }
+
+
                 // Get the book's thumbnail from the volume information
                 JSONObject imageLinksObject;
 
-
                 String imageUrl = "";
 
-
-                Bitmap IMAGE = null;
-
+                if (volume.has("imageLinks")) {
 
                     imageLinksObject = volume.getJSONObject("imageLinks");
 
-                        imageUrl = imageLinksObject.getString("thumbnail");
-                        IMAGE = getImage(imageUrl);
+                    imageUrl = imageLinksObject.getString("thumbnail");
 
-                // Add book to the list
-                allBooks.add(new Book(bookTitle, authors.toString(), bookRating, bookPrice, IMAGE,category));
+
+                    String previewLink = volume.getString("previewLink");
+
+                    Log.i("PREVIEW", "THE PREVIEW LINK IS HERE :" + previewLink);
+
+
+                    String infoLink = volume.getString("infoLink");
+
+
+                    // Add book to the list
+                    allBooks.add(new Book(bookTitle, authors.toString(), bookRating, bookPrice, imageUrl, category, description, publishedDate, previewLink, infoLink));
+                }
+
             }
 
         } catch (JSONException e) {
@@ -328,22 +349,5 @@ final class QueryResultActivity {
         return allBooks;
     }
 
-
-    private static Bitmap getImage(String imageUrl) {
-
-
-        if (imageUrl == null) {
-            return null;
-        }
-        URL Imagelink = createUrl(imageUrl);
-        try {
-            assert Imagelink != null;
-            return BitmapFactory.decodeStream(Imagelink.openConnection().getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }
 
 }

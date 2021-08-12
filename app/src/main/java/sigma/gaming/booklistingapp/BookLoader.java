@@ -9,28 +9,27 @@ import static sigma.gaming.booklistingapp.MainActivity.LOG_TAG;
 
 public class BookLoader  extends AsyncTaskLoader<List<Book>> {
 
-
     private String mSearchUrl;
 
     private List<Book>mData;
 
     public BookLoader(Context context,String url) {
         super(context);
-    mSearchUrl=url;
+        mSearchUrl=url;
     }
     /** Explicitly making the loader make HTTP request and begin loading data from content provider */
 
     @Override
     protected void onStartLoading() {
 
-       if(mData!=null){
-           deliverResult(mData);
-       }
-       else{
-        Log.i(LOG_TAG,"TEST:  onStartLoading called... ");
+        if(mData!=null){
+            deliverResult(mData);
+        }
+        else{
+            Log.i(LOG_TAG,"TEST:  onStartLoading called... ");
 
-        forceLoad();
-    }
+            forceLoad();
+        }
     }
     /**
      * This method is called in a background thread and takes care of the heavy lifting generating

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import java.util.List;
 public class QueryListOfBookActivity
         extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<Book>> {
+
 
 
     /** URL for books data from the Google books API */
@@ -41,6 +43,8 @@ public class QueryListOfBookActivity
     private BookAdapter mAdapter;
 
 
+    static  List<Book>dataList;
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -49,10 +53,12 @@ public class QueryListOfBookActivity
         setContentView(R.layout.list_of_book);
 
         // Find a reference to the {@link ListView} in the layout
-      GridView  bookListView = (GridView) findViewById(R.id.list);
+        GridView  bookListView = (GridView) findViewById(R.id.list);
 
-        // Create a new adapter that takes an empty list of earthquakes as input
-        mAdapter = new BookAdapter(this, new ArrayList<Book>());
+        dataList= new ArrayList<Book>();
+
+        // Create a new adapter that takes an empty list of books as input
+        mAdapter = new BookAdapter(this, dataList);
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
@@ -60,7 +66,7 @@ public class QueryListOfBookActivity
 
 
         mEmptyStateView = (TextView) findViewById(R.id.empty_view);
-       bookListView.setEmptyView(mEmptyStateView);
+        bookListView.setEmptyView(mEmptyStateView);
 
 
 // Get reference to the Progress bar
@@ -125,6 +131,18 @@ public class QueryListOfBookActivity
             // Update empty state with no connection error message
             mEmptyStateView.setText(R.string.no_internet_connection);
         }
+
+        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent   bookDetailIntent = new Intent(getApplicationContext(), DetailsActivity.class);
+                // put extra information into the Intent
+                bookDetailIntent.putExtra("key",position);
+                // start Activity
+                startActivity(bookDetailIntent);
+            }
+        });
+
     }
 
     @Override
@@ -162,6 +180,8 @@ public class QueryListOfBookActivity
 
 
     public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
+
+
         return new BookLoader(QueryListOfBookActivity.this, REQUEST_URL);
     }
 

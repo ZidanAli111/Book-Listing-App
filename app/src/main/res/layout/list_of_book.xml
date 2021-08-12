@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
- android:background="#18ffff"  >
+    android:background="#E8F0F2">
 
     <GridView
         android:id="@+id/list"

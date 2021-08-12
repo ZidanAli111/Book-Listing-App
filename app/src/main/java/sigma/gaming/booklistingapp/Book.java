@@ -10,7 +10,6 @@ import android.widget.ListAdapter;
 import java.net.URL;
 
 public class Book implements ListAdapter {
-
     private String mTitle;
 
     private  String mAuthors;
@@ -19,15 +18,25 @@ public class Book implements ListAdapter {
 
     private  float mPrice;
 
-    private Bitmap mThumbnail;
+    private String mThumbnail;
 
     private String mCategories;
 
+    private  String mDescription;
+
+    private String mPublishedDate;
+
+    private String mInfo;
+
+    private String mPreview;
+
+
+    protected static final String BOOK = "BOOK";
 
 
 
+    Book(String title, String author, float rating, float price, String image,String categories,String description,String publishedDate,String preview,String info)
 
-    Book(String title, String author, float rating, float price, Bitmap image,String categories)
     {
         this.mTitle=title;
         this.mAuthors=author;
@@ -35,9 +44,19 @@ public class Book implements ListAdapter {
         this.mPrice=price;
         this.mThumbnail=image;
         this.mCategories=categories;
+        this.mDescription=description;
+        this.mPublishedDate=publishedDate;
+        this.mInfo=info;
+        this.mPreview=preview;
     }
 
-    public Bitmap getmThumbnail() { return mThumbnail; }
+    public String getmPublishedDate() { return mPublishedDate; }
+
+    public String getmInfo() { return mInfo; }
+
+    public String getmPreview() { return mPreview; }
+
+    public String getmThumbnail() { return mThumbnail; }
 
     public String getmTitle() {
         return mTitle;
@@ -52,6 +71,8 @@ public class Book implements ListAdapter {
     public float getmPrice() {
         return mPrice;
     }
+
+    public String getmDescription() { return mDescription; }
 
     public String getmCategories() { return mCategories; }
 

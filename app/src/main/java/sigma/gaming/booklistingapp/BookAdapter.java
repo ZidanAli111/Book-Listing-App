@@ -65,13 +65,20 @@ public class BookAdapter  extends ArrayAdapter<Book> {
 
         bookImage=listItemView.findViewById(R.id.book_front_cover_image);
 
-        if (currentBook.getmThumbnail() != null) {
-            bookImage.setImageBitmap(currentBook.getmThumbnail());
-
-        }else {
-            bookImage.setImageResource(R.drawable.no_image_to_download);
-        }
-
+       if(!currentBook.getmThumbnail().matches(""))
+       {
+           Picasso.get()
+                   .load(currentBook.getmThumbnail())
+                   .fit()
+                   .error(R.drawable.no_image_to_download)
+                   .centerInside()
+                   .into(bookImage);
+       }else {
+       Picasso.get()
+               .load(R.drawable.no_image_to_download)
+               .centerInside()
+               .into(bookImage);
+       }
 
 
 
@@ -107,7 +114,7 @@ public class BookAdapter  extends ArrayAdapter<Book> {
         bookRating.setMax(5);
         bookRating.setNumStars(5);
         Drawable progress = bookRating.getProgressDrawable();
-        DrawableCompat.setTint(progress, Color.YELLOW);
+
 
 
 

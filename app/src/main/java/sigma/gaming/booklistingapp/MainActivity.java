@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+
     public static final String LOG_TAG = MainActivity.class.getName();
 
     private EditText mUserSearch;
