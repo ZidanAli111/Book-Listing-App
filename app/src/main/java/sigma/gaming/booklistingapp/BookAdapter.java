@@ -122,12 +122,10 @@ public class BookAdapter  extends ArrayAdapter<Book> {
 
         String price="";
 
-        if(currentBook.getmPrice()>0)
-        {
-            price="$"+ currentBook.getmPrice();
+
+            price=currentBook.getmPrice();
 
              bookPrice.setText(price);
-        }
 
 
 

@@ -16,7 +16,7 @@ public class Book implements ListAdapter {
 
     private float mRating;
 
-    private  float mPrice;
+    private  String mPrice;
 
     private String mThumbnail;
 
@@ -35,7 +35,7 @@ public class Book implements ListAdapter {
 
 
 
-    Book(String title, String author, float rating, float price, String image,String categories,String description,String publishedDate,String preview,String info)
+    Book(String title, String author, float rating, String  price, String image,String categories,String description,String publishedDate,String preview,String info)
 
     {
         this.mTitle=title;
@@ -68,7 +68,7 @@ public class Book implements ListAdapter {
         return mRating;
     }
 
-    public float getmPrice() {
+    public String getmPrice() {
         return mPrice;
     }
 

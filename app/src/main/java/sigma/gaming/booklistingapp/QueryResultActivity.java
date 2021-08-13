@@ -294,11 +294,12 @@ final class QueryResultActivity {
                 // Initialize a boolean variable to get the sale status of the book
                 boolean isSold = saleability.equals("FOR_SALE");
                 // Initialize variable to store book price
-                float bookPrice = 0f;
+               String price="No price Available";
                 // Extract sale price only when book is available for sale
                 if (isSold) {
                     JSONObject priceInfo = saleInfo.getJSONObject("retailPrice");
-                    bookPrice = (float) priceInfo.getDouble("amount");
+                    price = priceInfo.getString("amount");
+
                 }
 
 
@@ -331,7 +332,7 @@ final class QueryResultActivity {
 
 
                     // Add book to the list
-                    allBooks.add(new Book(bookTitle, authors.toString(), bookRating, bookPrice, imageUrl, category, description, publishedDate, previewLink, infoLink));
+                    allBooks.add(new Book(bookTitle, authors.toString(), bookRating, price, imageUrl, category, description, publishedDate, previewLink, infoLink));
                 }
 
             }

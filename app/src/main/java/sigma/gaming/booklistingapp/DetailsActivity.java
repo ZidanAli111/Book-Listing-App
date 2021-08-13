@@ -26,6 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvPublishDate;
     private TextView tvCatag;
     private TextView tvInfo;
+    private TextView price;
     private TextView tvPreview;
 
 
@@ -51,6 +52,8 @@ public class DetailsActivity extends AppCompatActivity {
         tvInfo = findViewById(R.id.aa_info);
         tvPreview = findViewById(R.id.preview);
 
+        price=findViewById(R.id.aa_price);
+
 
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_id);
         collapsingToolbarLayout.setTitleEnabled(true);
@@ -59,6 +62,18 @@ public class DetailsActivity extends AppCompatActivity {
         // data is extracted from an Intent
 
         int position = getIntent().getExtras().getInt("key");
+
+
+
+
+
+        String priceHere="";
+
+            priceHere=""+ dataList.get(position).getmPrice();
+
+            price.setText(priceHere);
+
+
 
 
         bookTitle.setText(dataList.get(position).getmTitle());
@@ -76,6 +91,9 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         info=dataList.get(position).getmInfo();
+
+
+
 
 
 
