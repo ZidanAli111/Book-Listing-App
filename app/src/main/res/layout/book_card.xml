@@ -76,8 +76,8 @@
             android:rating="3"
             style="@style/RatingBar"
             android:stepSize="0.1"
-            android:progressTint="#90EE02"
-            android:progressBackgroundTint="#61D800"/>
+            android:progressTint="#FFC107"
+            android:progressBackgroundTint="#FFC93C"/>
 
     </LinearLayout>
 </LinearLayout>
