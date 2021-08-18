@@ -1,6 +1,7 @@
 package sigma.gaming.booklistingapp;
 
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,13 @@ public class Book implements ListAdapter {
 
     private  float mPrice;
 
-    private String mThumbnail;
+    private Bitmap mThumbnail;
 
 
 
 
 
-    Book(String title, String author, float rating, float price, String image)
+    Book(String title, String author, float rating, float price, Bitmap image)
     {
         this.mTitle=title;
         this.mAuthors=author;
@@ -33,7 +34,7 @@ public class Book implements ListAdapter {
        this.mThumbnail=image;
     }
 
-    public String getmThumbnail() { return mThumbnail; }
+    public Bitmap getmThumbnail() { return mThumbnail; }
 
     public String getmTitle() {
         return mTitle;

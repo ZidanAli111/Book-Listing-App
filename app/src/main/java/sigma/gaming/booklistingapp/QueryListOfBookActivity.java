@@ -6,15 +6,15 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class QueryListOfBookActivity
 
     private BookAdapter mAdapter;
 
-    private EditText mUserSearch;
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class QueryListOfBookActivity
         setContentView(R.layout.list_of_book);
 
         // Find a reference to the {@link ListView} in the layout
-        GridView  bookListView = (GridView) findViewById(R.id.list);
+      GridView  bookListView = (GridView) findViewById(R.id.list);
 
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new BookAdapter(this, new ArrayList<Book>());
@@ -98,7 +98,9 @@ public class QueryListOfBookActivity
         }
 
         // Build the url from user search
-        REQUEST_URL += processedQuery + "&maxResults=40" + "&key=" + API_KEY;
+        REQUEST_URL += processedQuery +"&key=" + API_KEY;
+
+        Log.i("REQUEST URL"," SIGMA HERE IS THE REQUEST URL :"+REQUEST_URL);
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);

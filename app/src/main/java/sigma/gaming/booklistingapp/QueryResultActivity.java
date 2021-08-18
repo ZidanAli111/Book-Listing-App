@@ -1,12 +1,9 @@
 package sigma.gaming.booklistingapp;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.android.volley.RequestQueue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,11 +23,14 @@ import java.util.List;
 final class QueryResultActivity {
 
 
-
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     private static final String LOG_TAG = QueryResultActivity.class.getSimpleName();
 
-    /** Create a private constructor because no one should ever create a {@link QueryResultActivity} object. */
+    /**
+     * Create a private constructor because no one should ever create a {@link QueryResultActivity} object.
+     */
     private QueryResultActivity() {
     }
 
@@ -50,8 +50,9 @@ final class QueryResultActivity {
         // Perform HTTP request to the above created valid URL
         try {
             jsonResponse = makeHttpRequest(url);
+
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem making the HTTP request for the search criteria");
+            Log.e(LOG_TAG, "Problem making the HTTP request for the search criteria ..SIGMA..");
         }
 
         // Extract information from the JSON response for each book
@@ -59,7 +60,9 @@ final class QueryResultActivity {
         return QueryResultActivity.extractFeatures(jsonResponse);
     }
 
-    /** Returns new URL object from the given string URL. */
+    /**
+     * Returns new URL object from the given string URL.
+     */
     private static URL createUrl(String stringUrl) {
         // Initialize an empty {@link URL} object to hold the parsed URL from the stringUrl
         URL url = null;
@@ -69,11 +72,118 @@ final class QueryResultActivity {
         try {
             url = new URL(stringUrl);
         } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Problem building the url!");
+            Log.e(LOG_TAG, "Problem building the url! Check your URL Sigma!!");
         }
 
         // Return valid url
         return url;
+    }
+
+    /**
+     * Make an HTTP request to the given URL and return a String as the response.
+     */
+    private static String makeHttpRequest(URL url) throws IOException {
+        // Initialize variable to hold the parsed json response
+        String jsonResponse = "";
+
+        // Return early if url is null
+        if (url == null) {
+            Log.e("URL IS NULL","Sigma check your Url ... its NULL");
+
+            return jsonResponse;
+        }
+
+        // Initialize HTTP connection object
+        HttpURLConnection urlConnection = null;
+
+        // Initialize {@link InputStream} to hold response from request
+        InputStream inputStream = null;
+
+        try {
+            // Establish connection to the url
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            // Set request type
+            urlConnection.setRequestMethod("GET");
+
+            // Set read and connection timeout in milliseconds
+            // Basically, setting how long to wait on the request
+
+
+
+            urlConnection.setReadTimeout(10000);
+            urlConnection.setConnectTimeout(15000);
+
+
+            // Establish connection to the url
+            urlConnection.connect();
+
+            // Check for successful connection
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                // Connection successfully established
+                inputStream = urlConnection.getInputStream();
+                jsonResponse = readFromStream(inputStream);
+            } else {
+                Log.e(LOG_TAG, "Error while connecting..... SIGMA this is the   Error Code: " + urlConnection.getResponseCode());
+            }
+        } catch (IOException e) {
+            e.getMessage();
+
+            Log.e(LOG_TAG, "Problem encountered while retrieving book results... SIGMA...");
+
+        } finally {
+            if (urlConnection != null) {
+                Log.e(" DISCONNECT CONNECTION","DISCONNECT THE CONNECTION AFTER SUCCESSFULLY MAKING HTTP REQUEST ...SIGMA ..");
+
+                // Disconnect the connection after successfully making the HTTP request
+                urlConnection.disconnect();
+
+            }
+            if (inputStream != null) {
+                // Close the stream after successfully parsing the request
+                // This may throw an IOException which is why it is explicitly mentioned in the
+                // method signature
+                Log.e("CLOSE CONNECTION","CLOSE THE INPUTSTREAM AFTER SUCCESSFULLY PARSING THE HTTP REQUEST ...SIGMA ..");
+
+                inputStream.close();
+
+            }
+        }
+
+
+     //   Log.e(" FINAL JSONRESPONSE","THIS IS THE FINAL JSONRESPONSE SIGMA:"+jsonResponse);
+
+        // Return JSON as a {@link String}
+        return jsonResponse;
+    }
+
+
+    /**
+     * Convert the {@link InputStream} into a String which contains the
+     * whole JSON response from the server.
+     */
+    private static String readFromStream(InputStream inputStream) throws IOException {
+        StringBuilder output = new StringBuilder();
+        if (inputStream != null) {
+            // Decode the bits
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+
+            // Buffer the decoded characters
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+
+            // Store a line of characters from the {@link BufferedReader}
+            String line = reader.readLine();
+
+            // If not end of buffered input stream, read next line and add to output
+            while (line != null) {
+                output.append(line);
+                line = reader.readLine();
+            }
+        }
+// Log.e("FINAL STRINGBUILDER","THIS IS THE FINAL STRINGBUILDER GETTING FROM BUFFERREADER ...SIMGA.."+output);
+
+        // Convert the mutable characters sequence from the builder into a string and return
+        return output.toString();
     }
 
     /**
@@ -97,6 +207,7 @@ final class QueryResultActivity {
 
             // Extract the array that holds the books
             JSONArray books = rawJSONResponse.getJSONArray("items");
+
             for (int i = 0; i < books.length(); i++) {
                 // Get the current book
                 JSONObject book = books.getJSONObject(i);
@@ -125,7 +236,7 @@ final class QueryResultActivity {
 
                     // Initialize variables
                     String cAuthors = "";
-                    String[] allAuthors =  null;
+                    String[] allAuthors = null;
 
                     // Length of the first item from the array is used to deterministically
                     // come to the conclusion that the authors are concatenated together
@@ -176,107 +287,53 @@ final class QueryResultActivity {
                 }
 
                 // Get the book's thumbnail from the volume information
+                JSONObject imageLinksObject;
 
-                String thumbnail = volume.getJSONObject("imageLinks").getString("thumbnail");
-                
+
+                String imageUrl = "";
+
+
+                Bitmap IMAGE = null;
+
+
+                    imageLinksObject = volume.getJSONObject("imageLinks");
+
+                        imageUrl = imageLinksObject.getString("thumbnail");
+                        IMAGE = getImage(imageUrl);
+
                 // Add book to the list
-                allBooks.add(new Book(bookTitle, authors.toString(), bookRating, bookPrice,thumbnail));
+                allBooks.add(new Book(bookTitle, authors.toString(), bookRating, bookPrice, IMAGE));
             }
 
         } catch (JSONException e) {
+
+            e.printStackTrace();
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e(LOG_TAG, "Problem parsing the google books JSON results", e);
+            Log.e(LOG_TAG, "Problem parsing the google books JSON results:", e);
         }
 
         // Return the successfully parsed book titles as a {@link List} object
         return allBooks;
     }
 
-    /** Make an HTTP request to the given URL and return a String as the response. */
-    private static String makeHttpRequest(URL url) throws IOException {
-        // Initialize variable to hold the parsed json response
-        String jsonResponse = "";
 
-        // Return early if url is null
-        if (url == null) {
-            return jsonResponse;
+    private static Bitmap getImage(String imageUrl) {
+
+
+        if (imageUrl == null) {
+            return null;
         }
-
-        // Initialize HTTP connection object
-        HttpURLConnection urlConnection = null;
-
-        // Initialize {@link InputStream} to hold response from request
-        InputStream inputStream = null;
-
+        URL Imagelink = createUrl(imageUrl);
         try {
-            // Establish connection to the url
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            // Set request type
-            urlConnection.setRequestMethod("GET");
-
-            // Set read and connection timeout in milliseconds
-            // Basically, setting how long to wait on the request
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setConnectTimeout(15000);
-
-            // Establish connection to the url
-            urlConnection.connect();
-
-            // Check for successful connection
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                // Connection successfully established
-                inputStream = urlConnection.getInputStream();
-                jsonResponse = readFromStream(inputStream);
-            } else {
-                Log.e(LOG_TAG, "Error while connecting. Error Code: " + urlConnection.getResponseCode());
-            }
+            assert Imagelink != null;
+            return BitmapFactory.decodeStream(Imagelink.openConnection().getInputStream());
         } catch (IOException e) {
-            e.getMessage();
-            Log.e(LOG_TAG, "Problem encountered while retrieving book results");
-        } finally {
-            if (urlConnection != null) {
-                // Disconnect the connection after successfully making the HTTP request
-                urlConnection.disconnect();
-            }
-            if (inputStream != null) {
-                // Close the stream after successfully parsing the request
-                // This may throw an IOException which is why it is explicitly mentioned in the
-                // method signature
-                inputStream.close();
-            }
+            e.printStackTrace();
+            return null;
         }
 
-        // Return JSON as a {@link String}
-        return jsonResponse;
     }
 
-    /**
-     * Convert the {@link InputStream} into a String which contains the
-     * whole JSON response from the server.
-     */
-    private static String readFromStream(InputStream inputStream) throws IOException {
-        StringBuilder output = new StringBuilder();
-        if (inputStream != null) {
-            // Decode the bits
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-
-            // Buffer the decoded characters
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-
-            // Store a line of characters from the {@link BufferedReader}
-            String line = reader.readLine();
-
-            // If not end of buffered input stream, read next line and add to output
-            while (line != null) {
-                output.append(line);
-                line = reader.readLine();
-            }
-        }
-
-        // Convert the mutable characters sequence from the builder into a string and return
-        return output.toString();
-    }
 }
